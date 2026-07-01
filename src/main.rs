@@ -1,9 +1,13 @@
+mod dto;
+
 use axum::{
     Json, Router,
     http::StatusCode,
     routing::{get, post},
 };
-use serde::{Deserialize, Serialize};
+
+use crate::dto::create_user::CreateUser;
+use crate::dto::user::User;
 
 #[tokio::main]
 async fn main() {
@@ -41,17 +45,4 @@ async fn create_user(
     // this will be converted into a JSON response
     // with a status code of `201 Created`
     (StatusCode::CREATED, Json(user))
-}
-
-// the input to our `create_user` handler
-#[derive(Deserialize)]
-struct CreateUser {
-    username: String,
-}
-
-// the output to our `create_user` handler
-#[derive(Serialize)]
-struct User {
-    id: u64,
-    username: String,
 }
